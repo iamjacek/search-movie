@@ -1,0 +1,30 @@
+.movie-card {
+  position: relative;
+  margin: 2rem;
+  text-align: center;
+}
+
+.movie-card--image {
+  margin: 0 auto;
+  object-fit: none;
+}
+
+.movie-card--title {
+  font-size: 2rem;
+}
+
+.card--desc {
+  font-size: 1.6rem;
+}
+
+.movie-card--default-image {
+  width: 185px;
+  height: 278px;
+  border: solid 2px black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  text-align: center;
+  margin: 0 auto;
+}

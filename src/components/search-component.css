@@ -53,6 +53,18 @@ small {
   padding: 40px;
 }
 
+.movie-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  margin: 3rem 0;
+}
+
+@media (min-width: 580px) {
+  .movie-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
 @media (min-width: 786px) {
   .form {
     grid-template-columns: auto 1fr auto;
@@ -62,5 +74,9 @@ small {
 
   .input {
     margin-bottom: 0;
+  }
+
+  .movie-list {
+    grid-template-columns: 1fr 1fr 1fr;
   }
 }
