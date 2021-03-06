@@ -1,14 +1,18 @@
-import React from "react"
+import React, { useState } from "react"
 import "./movieCard-component.css"
 
 const MovieCard = ({
-  id,
   poster_path,
   title,
   release_date,
   vote_average,
   overview,
 }) => {
+  const [sliceTo, setSliceTo] = useState(100)
+  const handleClick = () => {
+    sliceTo === 100 ? setSliceTo(300) : setSliceTo(100)
+  }
+
   return (
     <>
       <div className="movie-card">
@@ -31,8 +35,13 @@ const MovieCard = ({
           <p>
             <small>RATING: {vote_average}</small>
           </p>
-          <p className="card--desc">{overview}</p>
+          <p className="movie-card--description">
+            {overview.slice(0, sliceTo)}
+          </p>
         </div>
+        <button className="movie-card--button" onClick={handleClick}>
+          {sliceTo === 100 ? "Read more" : "Close"}
+        </button>
       </div>
     </>
   )

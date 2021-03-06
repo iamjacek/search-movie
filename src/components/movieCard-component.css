@@ -13,8 +13,9 @@
   font-size: 2rem;
 }
 
-.card--desc {
+.movie-card--description {
   font-size: 1.6rem;
+  margin: 0.5rem 0;
 }
 
 .movie-card--default-image {
@@ -27,4 +28,19 @@
   font-size: 3rem;
   text-align: center;
   margin: 0 auto;
+}
+
+.movie-card--button {
+  background-color: rgba(85, 85, 85, 0);
+  color: #333;
+  padding: 0.5rem 1rem;
+  border: 1px solid #333;
+  border-radius: 20px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 250ms;
+  margin-bottom: 1rem;
+}
+.movie-card--button:hover {
+  background-color: rgba(85, 85, 85, 0.1);
 }
