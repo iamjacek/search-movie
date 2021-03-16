@@ -1,7 +1,9 @@
 import React, { useState } from "react"
+import { Link } from "@reach/router"
 import "./movieCard-component.css"
 
 const MovieCard = ({
+  id,
   poster_path,
   title,
   release_date,
@@ -16,17 +18,19 @@ const MovieCard = ({
   return (
     <>
       <div className="movie-card">
-        {poster_path === null ? (
-          <div className="movie-card--default-image">
-            poster not available :(
-          </div>
-        ) : (
-          <img
-            className="movie-card--image"
-            src={`https://image.tmdb.org/t/p/w185_and_h278_bestv2/${poster_path}`}
-            alt={title + " poster"}
-          />
-        )}
+        <Link to={`/movie/${id}`}>
+          {poster_path === null ? (
+            <div className="movie-card--default-image">
+              poster not available :(
+            </div>
+          ) : (
+            <img
+              className="movie-card--image"
+              src={`https://image.tmdb.org/t/p/w185_and_h278_bestv2/${poster_path}`}
+              alt={title + " poster"}
+            />
+          )}
+        </Link>
         <div className="movie-card--content">
           <h2 className="movie-card--title">{title}</h2>
           <p>

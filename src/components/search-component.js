@@ -16,7 +16,6 @@ const SearchComponent = () => {
     try {
       const res = await fetch(url)
       const data = await res.json()
-      // setMovies(JSON.stringify(data.results))
       let collection = []
       data.results.map((x) => collection.push(x))
       setMovies(collection)
