@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react"
 import "./movie-component.css"
+import { CircularProgressbar } from "react-circular-progressbar"
+import "react-circular-progressbar/dist/styles.css"
 
 const Movie = ({ id }) => {
   const [loading, setLoading] = useState(true)
@@ -40,31 +42,42 @@ const Movie = ({ id }) => {
       <div className="movie--description">
         <h2 className="movie--title">
           {movie.title}
-
-          {movie.runtime
-            ? " " +
-              Math.floor(movie.runtime / 60) +
-              "h" +
-              " " +
-              (
-                (movie.runtime / 60 - Math.floor(movie.runtime / 60)) *
-                60
-              ).toFixed(0) +
-              "m"
-            : ""}
+          {" (" + movie.release_date.slice(0, 4) + ")"}
+          <div className="movie--circular-progressbar">
+            <CircularProgressbar
+              value={movie.vote_average * 10}
+              text={`${movie.vote_average * 10}%`}
+            />
+          </div>
         </h2>
+
         <p className="movie--genres">
-          Type:
+          <strong>TYPE: </strong>
           {movie.genres.map((genre) => (
-            <span>{" " + genre.name}</span>
+            <span key={genre.id}>{" " + genre.name}</span>
           ))}
         </p>
         <p>
-          <small>RELEASE DATE: {movie.release_date}</small>
+          <small>
+            <strong>RELEASE DATE:</strong> {movie.release_date}{" "}
+            {movie.runtime ? (
+              <span>
+                <strong>LENGTH: </strong>{" "}
+                {Math.floor(movie.runtime / 60) +
+                  "h" +
+                  " " +
+                  (
+                    (movie.runtime / 60 - Math.floor(movie.runtime / 60)) *
+                    60
+                  ).toFixed(0) +
+                  "m"}
+              </span>
+            ) : (
+              ""
+            )}
+          </small>
         </p>
-        <p>
-          <small>RATING: {`${movie.vote_average} (${movie.vote_count})`}</small>
-        </p>
+
         <p className="movie--description">{movie.overview}</p>
       </div>
     </div>

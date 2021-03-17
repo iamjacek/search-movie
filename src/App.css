@@ -26,3 +26,20 @@ a {
 h1 {
   margin-bottom: 5rem;
 }
+
+footer {
+  text-align: center;
+  font-size: 1.6rem;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 1000px;
+  padding: 40px;
+  min-height: 100vh;
+  margin-bottom: -50px;
+}
+
+.push {
+  height: 50px;
+}

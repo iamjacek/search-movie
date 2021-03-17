@@ -24,6 +24,58 @@ const SearchComponent = () => {
     }
   }
 
+  const clearList = () => {
+    setMovies([])
+  }
+
+  const topRatedMovies = async (e) => {
+    e.preventDefault()
+
+    const url = `https://api.themoviedb.org/3/discover/movie?api_key=c73001170e5a69c4b20b4fc3ce483ba2&certification_country=US&certification=R&sort_by=vote_average.desc`
+    console.log("popular proccessing")
+    try {
+      const res = await fetch(url)
+      const data = await res.json()
+      let collection = []
+      data.results.map((x) => collection.push(x))
+      setMovies(collection)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const popularMovies = async (e) => {
+    e.preventDefault()
+
+    const url = `https://api.themoviedb.org/3/discover/movie?api_key=c73001170e5a69c4b20b4fc3ce483ba2&sort_by=popularity.desc`
+    console.log("popular proccessing")
+    try {
+      const res = await fetch(url)
+      const data = await res.json()
+      let collection = []
+      data.results.map((x) => collection.push(x))
+      setMovies(collection)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const bestOf20Movies = async (e) => {
+    e.preventDefault()
+
+    const url = `https://api.themoviedb.org/3/discover/movie?api_key=c73001170e5a69c4b20b4fc3ce483ba2&primary_release_year=2020&sort_by=vote_average.desc`
+    console.log("popular proccessing")
+    try {
+      const res = await fetch(url)
+      const data = await res.json()
+      let collection = []
+      data.results.map((x) => collection.push(x))
+      setMovies(collection)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
   return (
     <>
       <form className="form" onSubmit={searchMovies}>
@@ -41,6 +93,21 @@ const SearchComponent = () => {
           Search{" "}
         </button>
       </form>
+      <div className="search--discovery-buttons">
+        <button className="search--popular-button" onClick={clearList}>
+          Clear List
+        </button>
+        <button className="search--popular-button" onClick={topRatedMovies}>
+          Top Rated Movies
+        </button>
+        <button className="search--popular-button" onClick={popularMovies}>
+          Popular Movies
+        </button>
+        <button className="search--popular-button" onClick={bestOf20Movies}>
+          Best of 2020
+        </button>
+      </div>
+
       <div className="movie-list">
         {movies.map((movie) => (
           <MovieCard {...movie} key={movie.id} />

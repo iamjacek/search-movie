@@ -47,12 +47,6 @@ small {
   font-size: 1.2rem;
 }
 
-.container {
-  margin: 0 auto;
-  max-width: 1000px;
-  padding: 40px;
-}
-
 .movie-list {
   display: grid;
   grid-template-columns: 1fr;
