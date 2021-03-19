@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import MovieCard from "./movieCard-component"
 import { Link } from "@reach/router"
 
@@ -6,6 +6,12 @@ const SearchComponent = () => {
   const [query, setQuery] = useState("")
 
   const [movies, setMovies] = useState([])
+
+  const [lastPhrases, setLastPhrases] = useState([])
+
+  useEffect(() => {
+    getSearchingPhrase()
+  }, [movies])
 
   const addSearchingPhrase = (phrase) => {
     if (localStorage) {
@@ -19,7 +25,7 @@ const SearchComponent = () => {
 
   const getSearchingPhrase = () => {
     if (localStorage && localStorage.getItem("searched")) {
-      return JSON.parse(localStorage.getItem("searched"))
+      setLastPhrases(JSON.parse(localStorage.getItem("searched")))
     }
   }
 
@@ -112,7 +118,7 @@ const SearchComponent = () => {
     <>
       <div className="search--lastSearched">
         <p>LAST TIME YOU'VE SEARCHED:</p>
-        {getSearchingPhrase().map((phrase) => (
+        {lastPhrases.map((phrase) => (
           <button
             onClick={() => handleLastSearchPhrase(phrase)}
             className="search--lastSearch-button"
