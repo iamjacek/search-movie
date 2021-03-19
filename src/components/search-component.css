@@ -39,6 +39,20 @@ input {
   background-color: rgba(46, 46, 46, 0.75);
 }
 
+.search--popular-button {
+  padding: 0.5rem 1rem;
+  border-radius: 15px;
+  background-color: rgba(85, 85, 85, 0.75);
+  border: 1px solid rgba(165, 165, 165, 0.75);
+  color: white;
+  cursor: pointer;
+  margin: 1rem;
+}
+
+.search--popular-button:hover {
+  background-color: rgba(46, 46, 46, 0.75);
+}
+
 p {
   font-size: 1.6rem;
 }
@@ -51,6 +65,32 @@ small {
   display: grid;
   grid-template-columns: 1fr;
   margin: 3rem 0;
+}
+
+.search--lastSearched {
+  font-size: 1.2rem;
+  margin: 2rem 0;
+  text-align: center;
+  line-height: 3rem;
+}
+
+.search--lastSearched p {
+  margin-bottom: 0;
+}
+
+.search--lastSearch-button {
+  background-color: rgba(85, 85, 85, 0);
+  color: #333;
+  padding: 0.5rem 1rem;
+  border: 1px solid #333;
+  border-radius: 20px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 250ms;
+  margin: 0 0.5rem;
+}
+.search--lastSearch-button:hover {
+  background-color: rgba(85, 85, 85, 0.1);
 }
 
 @media (min-width: 580px) {

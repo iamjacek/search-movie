@@ -49,13 +49,3 @@
   margin: 0.5rem auto;
   text-align: center;
 }
-
-.search--popular-button {
-  padding: 0.5rem 1rem;
-  border-radius: 15px;
-  background-color: rgba(85, 85, 85, 0.75);
-  border: 1px solid rgba(165, 165, 165, 0.75);
-  color: white;
-  cursor: pointer;
-  margin: 1rem;
-}

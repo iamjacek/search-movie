@@ -1,10 +1,41 @@
 import React, { useState } from "react"
 import MovieCard from "./movieCard-component"
+import { Link } from "@reach/router"
 
 const SearchComponent = () => {
   const [query, setQuery] = useState("")
 
   const [movies, setMovies] = useState([])
+
+  const addSearchingPhrase = (phrase) => {
+    if (localStorage) {
+      let existingEntries = JSON.parse(localStorage.getItem("searched"))
+      if (existingEntries == null) existingEntries = []
+      if (existingEntries.length > 4) existingEntries.pop()
+      existingEntries.unshift(phrase)
+      localStorage.setItem("searched", JSON.stringify(existingEntries))
+    }
+  }
+
+  const getSearchingPhrase = () => {
+    if (localStorage && localStorage.getItem("searched")) {
+      return JSON.parse(localStorage.getItem("searched"))
+    }
+  }
+
+  const handleLastSearchPhrase = async (phrase) => {
+    const url = `https://api.themoviedb.org/3/search/movie?api_key=c73001170e5a69c4b20b4fc3ce483ba2&language=en-US&query=${phrase}&page=1&include_adult=false`
+
+    try {
+      const res = await fetch(url)
+      const data = await res.json()
+      let collection = []
+      data.results.map((x) => collection.push(x))
+      setMovies(collection)
+    } catch (err) {
+      console.error(err)
+    }
+  }
 
   const searchMovies = async (e) => {
     e.preventDefault()
@@ -19,6 +50,7 @@ const SearchComponent = () => {
       let collection = []
       data.results.map((x) => collection.push(x))
       setMovies(collection)
+      addSearchingPhrase(query)
     } catch (err) {
       console.error(err)
     }
@@ -78,6 +110,15 @@ const SearchComponent = () => {
 
   return (
     <>
+      <div className="search--lastSearched">
+        <p>LAST TIME YOU'VE SEARCHED:</p>
+        {getSearchingPhrase().map((phrase) => (
+          <button
+            onClick={() => handleLastSearchPhrase(phrase)}
+            className="search--lastSearch-button"
+          >{` ${phrase}`}</button>
+        ))}
+      </div>
       <form className="form" onSubmit={searchMovies}>
         <label htmlFor="query" className="label">
           Movie Name
