@@ -49,3 +49,19 @@
   margin: 0.5rem auto;
   text-align: center;
 }
+
+.movie--rate-button {
+  background-color: rgba(85, 85, 85, 0);
+  color: #333;
+  padding: 0.5rem 1rem;
+  border: 1px solid #333;
+  border-radius: 20px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 250ms;
+  margin: 0 0.5rem;
+}
+
+.movie--rate-button:hover {
+  background-color: rgba(85, 85, 85, 0.1);
+}

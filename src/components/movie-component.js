@@ -6,7 +6,9 @@ import "react-circular-progressbar/dist/styles.css"
 const Movie = ({ id }) => {
   const [loading, setLoading] = useState(true)
   const [movie, setMovie] = useState("")
-  const url = `https://api.themoviedb.org/3/movie/${id}?api_key=c73001170e5a69c4b20b4fc3ce483ba2`
+  const [rate, setRate] = useState(5)
+  const [toastMsg, setToastMsg] = useState(false)
+  const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_API_KEY}`
 
   useEffect(() => {
     async function fetchData() {
@@ -15,7 +17,6 @@ const Movie = ({ id }) => {
         const data = await res.json()
         setMovie(data)
         setLoading(false)
-        console.log(data)
       } catch (err) {
         console.error(err)
       }
@@ -25,6 +26,40 @@ const Movie = ({ id }) => {
 
   if (loading) {
     return <h1>Loading ...</h1>
+  }
+
+  const handleRateMovie = (e, movieID) => {
+    e.preventDefault()
+    //check if session exist and if is not expired and get session ID
+    if (
+      localStorage &&
+      localStorage.getItem("expires_at") &&
+      localStorage.getItem("session_id")
+    ) {
+      const guestSessionId = JSON.parse(localStorage.getItem("session_id"))
+      //request a post with rate value
+      const rateUrl = `https://api.themoviedb.org/3/movie/${movieID}/rating?api_key=${process.env.REACT_APP_API_KEY}&guest_session_id=${guestSessionId}`
+
+      const data = { value: `${rate}` }
+
+      fetch(rateUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          // console.log("Success:", data)
+          if (data.success === true) setToastMsg(true)
+        })
+        .catch((error) => {
+          console.error("Error:", error)
+        })
+
+      //show whether movie is rated or any error occured
+    }
   }
 
   return (
@@ -48,6 +83,24 @@ const Movie = ({ id }) => {
               value={movie.vote_average * 10}
               text={`${movie.vote_average * 10}%`}
             />
+            <form onSubmit={(e) => handleRateMovie(e, movie.id)}>
+              <label htmlFor="rate">
+                Rate movie (between 0.5 and 10): {rate}
+              </label>
+              <input
+                type="range"
+                name="rate"
+                min="0.5"
+                max="10"
+                step="0.5"
+                value={rate}
+                onChange={(e) => setRate(e.target.value)}
+              />
+              {toastMsg && <p>You have successfuly rated a movie!</p>}
+              <button className="movie--rate-button" type="submit">
+                Rate it!
+              </button>
+            </form>
           </div>
         </h2>
 

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react"
 import MovieCard from "./movieCard-component"
-import { Link } from "@reach/router"
 
 const SearchComponent = () => {
   const [query, setQuery] = useState("")
@@ -66,11 +65,14 @@ const SearchComponent = () => {
     setMovies([])
   }
 
+  const getDateAndTime = () => {
+    return new Date().getTime()
+  }
+
   const topRatedMovies = async (e) => {
     e.preventDefault()
 
     const url = `https://api.themoviedb.org/3/discover/movie?api_key=c73001170e5a69c4b20b4fc3ce483ba2&certification_country=US&certification=R&sort_by=vote_average.desc`
-    console.log("popular proccessing")
     try {
       const res = await fetch(url)
       const data = await res.json()
@@ -86,7 +88,6 @@ const SearchComponent = () => {
     e.preventDefault()
 
     const url = `https://api.themoviedb.org/3/discover/movie?api_key=c73001170e5a69c4b20b4fc3ce483ba2&sort_by=popularity.desc`
-    console.log("popular proccessing")
     try {
       const res = await fetch(url)
       const data = await res.json()
@@ -102,7 +103,6 @@ const SearchComponent = () => {
     e.preventDefault()
 
     const url = `https://api.themoviedb.org/3/discover/movie?api_key=c73001170e5a69c4b20b4fc3ce483ba2&primary_release_year=2020&sort_by=vote_average.desc`
-    console.log("popular proccessing")
     try {
       const res = await fetch(url)
       const data = await res.json()
@@ -118,10 +118,11 @@ const SearchComponent = () => {
     <>
       <div className="search--lastSearched">
         <p>LAST TIME YOU'VE SEARCHED:</p>
-        {lastPhrases.map((phrase) => (
+        {lastPhrases.map((phrase, index) => (
           <button
             onClick={() => handleLastSearchPhrase(phrase)}
             className="search--lastSearch-button"
+            key={`${phrase}_${getDateAndTime()}_${index}`}
           >{` ${phrase}`}</button>
         ))}
       </div>
